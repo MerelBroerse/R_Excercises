@@ -52,7 +52,7 @@ pk_metingen <- data.frame(
         legend.text= element_text(hjust=0.5,
                                     face="bold",
                                     family="sans",
-                                    size=14),
+                                    size=12),
         legend.title= element_text(hjust=0.5,
                                   face="bold",
                                   family="sans",
