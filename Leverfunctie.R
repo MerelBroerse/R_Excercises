@@ -56,11 +56,6 @@ pk_metingen <- data.frame(
   labs(title = "Leverfunctie per categorie",
        x="Tijd (uren)",
        y="Waarde")
-  
-  
-  
-  
-
 
 # Theoretische curve data (om mee te vergelijken)
 theoretisch_model <- data.frame(
