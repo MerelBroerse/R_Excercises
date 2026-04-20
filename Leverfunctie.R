@@ -49,6 +49,14 @@ pk_metingen <- data.frame(
                                     face="bold",
                                     family="sans",
                                     size=14),
+        legend.text= element_text(hjust=0.5,
+                                    face="bold",
+                                    family="sans",
+                                    size=14),
+        legend.title= element_text(hjust=0.5,
+                                  face="bold",
+                                  family="sans",
+                                  size=14),
         axis.text=element_text(hjust=0.5,
                                 face="bold",
                                 family="sans",
@@ -56,11 +64,6 @@ pk_metingen <- data.frame(
   labs(title = "Leverfunctie per categorie",
        x="Tijd (uren)",
        y="Waarde")
-  
-  
-  
-  
-
 
 # Theoretische curve data (om mee te vergelijken)
 theoretisch_model <- data.frame(
