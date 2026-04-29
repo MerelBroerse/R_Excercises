@@ -14,8 +14,8 @@ patients <- data.frame(
 # Dataset 2: Biomarkers over tijd (Weken na start therapie)
 biomarkers <- expand.grid(pat_id = 1:n_patients, week = c("week_0", "week_2", "week_4", "week_8")) %>%
   mutate(protein_level = rnorm(n(), mean = 50, sd = 15)) %>%
-  mutate(protein_level = ifelse(runif(n()) < 0.05, NA, protein_level)) %>% # Introductie missing values
-  mutate(protein_level = paste0("val_", round(protein_level, 2))) # Getallen als tekst met prefix
+  mutate(protein_level = ifelse(runif(n()) < 0.05, NA, protein_level)) %>% 
+  mutate(protein_level = paste0("val_", round(protein_level, 2)))
 
 # Dataset 3: Behandeluitkomst, verder gewerkt tot groeipercentage
 outcomes <- data.frame(
