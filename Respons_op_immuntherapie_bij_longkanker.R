@@ -117,7 +117,67 @@ linegrafiek <- data.frame(
        x="weeknummer",
        y="Protein level",
        color="Mutation status")
-#
 
+# Respons verdeling
+bargrafiek <- data.frame(
+  id = 1:n_patients,
+  response = sample(c("Complete Response", "Partial Response", "Stable Disease", "Progressive Disease"), n_patients, replace = TRUE),
+  hosp_name = "LUMC-Oncology-Center"
+) %>%
+  rename("pat_id" ="id") %>%
+  left_join(patients, by="pat_id") %>%
+  left_join(biomarkers, by="pat_id") %>%
+  separate(col = (age_gender),
+           sep = "_",
+           into = c("Age", "Gender"),
+           convert = T) %>%
+  separate(col=(protein_level),
+           sep="_",
+           into=c("val","protein_level"),
+           convert = T) %>%
+  select(-(val)) %>%
+  separate(col=(week),
+           sep="_",
+           into=c("week","weeknummer"),
+           convert = T) %>%
+  select(-(week)) %>%
+  mutate(location_code=case_when(location_code == "LOC-A" ~ "A",
+                                 location_code == "LOC-B" ~ "B",
+                                 location_code == "LOC-C" ~ "C")) %>%
+  drop_na() %>%
+  group_by(hosp_name,mutation_status,weeknummer, response) %>%
+  summarise(mean_Protein_level = round(mean(protein_level), digits = 2),
+            SD_Protein_level = round(sd(protein_level), digits = 2)) %>%
+  ggplot(mapping=aes(x=as.factor(weeknummer),
+                     y=mean_Protein_level,
+                     fill=response)) +
+  geom_col(width=0.5) +
+  theme_classic() +
+  scale_fill_brewer(palette="Set2") +
+  theme(plot.title = element_text(hjust=0.5,
+                                  face="bold",
+                                  family="sans",
+                                  size=16),
+        plot.subtitle=element_text(hjust=0.5,
+                                   face="bold",
+                                   family="sans",
+                                   size=14),
+        axis.text=element_text(face="bold",
+                               family="sans",
+                               size=14),
+        axis.title=element_text(face="bold",
+                                family="sans",
+                                size=14),
+        legend.title=element_text(size=12,
+                                  face="bold",
+                                  family="sans"),
+        legend.text=element_text(size=12,
+                                 face="bold",
+                                 family="sans")) +
+  labs(title="Protein level over time",
+       subtitle = "Different types of lungcancer mutations",
+       x="weeknummer",
+       y="Protein level",
+       fill="Respons status")
 
 
